@@ -1,6 +1,5 @@
 package spring.boot.app.demo.util;
 
-import exceptions.DataProcessingException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
+import spring.boot.app.demo.exceptions.DataProcessingException;
 
 @Component
 public class CustomFileReader {

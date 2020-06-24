@@ -1,4 +1,4 @@
-package exceptions;
+package spring.boot.app.demo.exceptions;
 
 public class DataProcessingException extends RuntimeException {
     public DataProcessingException(String message, Exception exception) {
