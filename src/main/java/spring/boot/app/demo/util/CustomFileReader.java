@@ -1,5 +1,6 @@
 package spring.boot.app.demo.util;
 
+import exceptions.DataProcessingException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomFileReader {
     private static final Logger LOGGER = Logger.getLogger(CustomFileReader.class);
 
@@ -17,7 +20,7 @@ public class CustomFileReader {
             allLines = Files.readAllLines(Paths.get(directory));
             LOGGER.info("Information from file with directory " + directory + "was read");
         } catch (IOException e) {
-            LOGGER.error("Can not read from file with directory " + directory);
+            throw new DataProcessingException("Can not read from file with directory " + directory, e);
         }
         return allLines;
     }
