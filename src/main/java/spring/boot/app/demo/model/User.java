@@ -1,19 +1,14 @@
 package spring.boot.app.demo.model;
 
 import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
+@Data
 @AllArgsConstructor
-@ToString
-@Getter
-@Setter
-@EqualsAndHashCode
 public class User {
     private Product product;
     private String id;
