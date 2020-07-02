@@ -1,16 +1,12 @@
 package spring.boot.app.demo.service.impl;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
+import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import spring.boot.app.demo.model.User;
 import spring.boot.app.demo.repository.ProductRepository;
 import spring.boot.app.demo.repository.UserRepository;
 import spring.boot.app.demo.service.UserService;
-
-import javax.swing.text.html.HTMLDocument;
 
 @Service
 public class UserServiceImpl implements UserService {
