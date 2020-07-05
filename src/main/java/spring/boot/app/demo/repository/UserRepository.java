@@ -8,15 +8,5 @@ import spring.boot.app.demo.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-    @Override
-    <S extends User> S save(S s);
 
-    @Override
-    Optional<User> findById(String s);
-
-    @Override
-    List<User> findAll();
-
-    @Override
-    void delete(User user);
 }

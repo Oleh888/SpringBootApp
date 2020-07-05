@@ -8,15 +8,4 @@ import spring.boot.app.demo.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
-    @Override
-    <S extends Product> S save(S s);
-
-    @Override
-    Optional<Product> findById(String s);
-
-    @Override
-    List<Product> findAll();
-
-    @Override
-    void delete(Product product);
 }
