@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import spring.boot.app.demo.model.Product;
 import spring.boot.app.demo.model.User;
 import spring.boot.app.demo.util.CustomCsvParser;
@@ -13,20 +15,34 @@ import spring.boot.app.demo.util.CustomFileReader;
 
 public class CustomFileReaderAndParserTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
+    private static final String EMPTY_FILE_TEST = "src/test/resources/test2.csv";
+    private static CustomFileReader reader;
+    private static CustomCsvParser parser;
+
+    @BeforeClass
+    public static void setHelperObjects() {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext("spring.boot.app.demo");
+        reader = context.getBean(CustomFileReader.class);
+        parser = context.getBean(CustomCsvParser.class);
+    }
 
     @Test
     public void readFromFileIsOk() {
-        CustomFileReader fileReader = new CustomFileReader();
-        List<String> actual = fileReader.getAll(FILE_TEST);
+        List<String> actual = reader.getAll(FILE_TEST);
         Assert.assertEquals(11, actual.size());
+    }
+
+    @org.junit.Test
+    public void readFromEmptyFileIsOk() {
+        List<String> actual = reader.getAll(EMPTY_FILE_TEST);
+        Assert.assertTrue(actual.isEmpty());
     }
 
     @Test
     public void parseDataIsOk() {
-        CustomFileReader fileReader = new CustomFileReader();
-        List<String> actual = fileReader.getAll(FILE_TEST);
-        CustomCsvParser csvParser = new CustomCsvParser();
-        List<User> users = csvParser.getAllUsers(actual);
+        List<String> actual = reader.getAll(FILE_TEST);
+        List<User> users = parser.getAllUsers(actual);
         User testUserOne = new User(new Product("B001E4KFG0"), "A3SGXH7AUHU8GW", "delmartian",
                 1, 1, 5, convertToLocalDateTime("1303862400"),
                 "Good Quality Dog Food", "I have bought several of the Vitality canned dog food "
