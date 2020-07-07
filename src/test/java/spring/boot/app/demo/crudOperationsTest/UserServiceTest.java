@@ -24,8 +24,8 @@ public class UserServiceTest {
     public static void setHelperObjects() {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext("spring.boot.app.demo");
-        CustomFileReader reader = new CustomFileReader();
-        CustomCsvParser parser = new CustomCsvParser();
+        CustomFileReader reader = context.getBean(CustomFileReader.class);
+        CustomCsvParser parser = context.getBean(CustomCsvParser.class);
         userService = context.getBean(UserService.class);
         List<String> actual = reader.getAll(FILE_TEST);
         users = parser.getAllUsers(actual);
