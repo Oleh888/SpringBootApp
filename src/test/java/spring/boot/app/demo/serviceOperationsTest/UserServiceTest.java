@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class ServiceTest {
+public class UserServiceTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
     private static UserService userService;
     private static ProductService productService;
@@ -67,13 +67,6 @@ public class ServiceTest {
     public void getMostActiveUserIsOk() {
         String expected = users.get(3).getProfileName();
         String actual = userService.getMostActiveLimitedTo(10).get(0);
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getMostCommentedProductIsOk() {
-        String expected = users.get(4).getProduct().getId();
-        String actual = productService.getMostCommentedLimitedTo(10).get(0);
         Assert.assertEquals(expected, actual);
     }
 }
