@@ -66,7 +66,9 @@ public class UserServiceTest {
     @Test
     public void getMostActiveUserIsOk() {
         String expected = users.get(3).getProfileName();
-        String actual = userService.getMostActiveLimitedTo(10).get(0);
+        List<String> actualUsers = userService.getMostActiveLimitedTo(5);
+        String actual = actualUsers.get(0);
+        Assert.assertEquals(5, actualUsers.size());
         Assert.assertEquals(expected, actual);
     }
 }

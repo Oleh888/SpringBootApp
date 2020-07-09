@@ -29,15 +29,16 @@ public class ProductServiceTest {
         CustomCsvParser parser = context.getBean(CustomCsvParser.class);
         UserService userService = context.getBean(UserService.class);
         productService = context.getBean(ProductService.class);
-        List<String> actual = reader.getAll(FILE_TEST);
-        users = parser.getAllUsers(actual);
+        users = parser.getAllUsers(reader.getAll(FILE_TEST));
         users.forEach(userService::create);
     }
 
     @Test
     public void getMostCommentedProductIsOk() {
-        String expected = users.get(4).getProduct().getId();
-        String actual = productService.getMostCommentedLimitedTo(10).get(0);
+        String expected = users.get(4).getProduct().getNativeId();
+        List<String> actualUsers = productService.getMostCommentedLimitedTo(5);
+        String actual = actualUsers.get(0);
+        Assert.assertEquals(5, actualUsers.size());
         Assert.assertEquals(expected, actual);
     }
 }

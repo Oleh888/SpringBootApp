@@ -53,7 +53,7 @@ public class CustomFileReaderAndParserTest {
         Assert.assertEquals(1, users.get(2).getHelpfulnessNumerator());
         Assert.assertEquals(2, users.get(3).getScore());
         Assert.assertEquals(convertToLocalDateTime("1350777600"), users.get(4).getLocalDateTime());
-        Assert.assertEquals("B006K2ZZ7K", users.get(5).getProduct().getId());
+        Assert.assertEquals("B006K2ZZ7K", users.get(5).getProduct().getNativeId());
         Assert.assertEquals("Great!", users.get(6).getSummary());
         Assert.assertEquals("This taffy is so good.", users.get(7).getText());
     }

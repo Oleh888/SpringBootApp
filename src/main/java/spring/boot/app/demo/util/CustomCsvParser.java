@@ -48,7 +48,7 @@ public class CustomCsvParser {
     private User getUserFromLine(String[] data) {
         User user = new User();
         Product product = new Product();
-        product.setId(data[PRODUCT_ID_INDEX]);
+        product.setNativeId(data[PRODUCT_ID_INDEX]);
         user.setProduct(product);
         user.setId(data[USER_ID_INDEX]);
         user.setProfileName(data[PROFILE_NAME_INDEX]);
