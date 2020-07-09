@@ -18,7 +18,6 @@ import spring.boot.app.demo.util.CustomFileReader;
 @DataJpaTest
 public class ProductServiceTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
-    private static UserService userService;
     private static ProductService productService;
     private static List<User> users;
 
@@ -28,7 +27,7 @@ public class ProductServiceTest {
                 new AnnotationConfigApplicationContext("spring.boot.app.demo");
         CustomFileReader reader = context.getBean(CustomFileReader.class);
         CustomCsvParser parser = context.getBean(CustomCsvParser.class);
-        userService = context.getBean(UserService.class);
+        UserService userService = context.getBean(UserService.class);
         productService = context.getBean(ProductService.class);
         List<String> actual = reader.getAll(FILE_TEST);
         users = parser.getAllUsers(actual);
