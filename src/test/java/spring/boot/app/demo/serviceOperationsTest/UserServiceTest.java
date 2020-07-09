@@ -1,4 +1,4 @@
-package spring.boot.app.demo.crudOperationsTest;
+package spring.boot.app.demo.serviceOperationsTest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import spring.boot.app.demo.model.User;
+import spring.boot.app.demo.service.ProductService;
 import spring.boot.app.demo.service.UserService;
 import spring.boot.app.demo.util.CustomCsvParser;
 import spring.boot.app.demo.util.CustomFileReader;
@@ -18,6 +19,7 @@ import java.util.List;
 public class UserServiceTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
     private static UserService userService;
+    private static ProductService productService;
     private static List<User> users;
 
     @BeforeClass
@@ -27,9 +29,10 @@ public class UserServiceTest {
         CustomFileReader reader = context.getBean(CustomFileReader.class);
         CustomCsvParser parser = context.getBean(CustomCsvParser.class);
         userService = context.getBean(UserService.class);
+        productService = context.getBean(ProductService.class);
         List<String> actual = reader.getAll(FILE_TEST);
         users = parser.getAllUsers(actual);
-        users.forEach(userService::save);
+        users.forEach(userService::create);
     }
 
     @Test
@@ -58,5 +61,14 @@ public class UserServiceTest {
             Assert.assertEquals(expectedUser, userService.findById(expectedUser.getId())
                     .orElseThrow(RuntimeException::new));
         }
+    }
+
+    @Test
+    public void getMostActiveUserIsOk() {
+        String expected = users.get(3).getProfileName();
+        List<String> actualUsers = userService.getMostActiveLimitedTo(5);
+        String actual = actualUsers.get(0);
+        Assert.assertEquals(5, actualUsers.size());
+        Assert.assertEquals(expected, actual);
     }
 }

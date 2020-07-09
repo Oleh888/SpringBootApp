@@ -18,6 +18,7 @@ public class User {
     private Product product;
     @Id
     private String id;
+    @Column(name = "profile_name")
     private String profileName;
     private int helpfulnessNumerator;
     private int helpfulnessDenominator;
