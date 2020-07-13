@@ -16,6 +16,7 @@ import spring.boot.app.demo.util.CustomFileReader;
 public class CustomFileReaderAndParserTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
     private static final String EMPTY_FILE_TEST = "src/test/resources/test2.csv";
+    private static final String TEST_PASSWORD = "1111";
     private static CustomFileReader reader;
     private static CustomCsvParser parser;
 
@@ -43,12 +44,14 @@ public class CustomFileReaderAndParserTest {
     public void parseDataIsOk() {
         List<String> actual = reader.getAll(FILE_TEST);
         List<User> users = parser.getAllUsers(actual);
-        User testUserOne = new User(new Product("B001E4KFG0"), "A3SGXH7AUHU8GW", "delmartian",
+        users.forEach(user -> user.setPassword(TEST_PASSWORD));
+        users.forEach(user -> user.setRole(User.Role.ADMIN));
+        User testUserOne = new User(null, new Product("B001E4KFG0"), "A3SGXH7AUHU8GW", "delmartian",
                 1, 1, 5, convertToLocalDateTime("1303862400"),
                 "Good Quality Dog Food", "I have bought several of the Vitality canned dog food "
-                + "products and have found them all to be of good quality.");
+                + "products and have found them all to be of good quality.", TEST_PASSWORD, User.Role.ADMIN);
         Assert.assertEquals(testUserOne, users.get(0));
-        Assert.assertEquals("A1MZYO9TZK0BBI", users.get(8).getId());
+        Assert.assertEquals("A1MZYO9TZK0BBI", users.get(8).getNativeId());
         Assert.assertEquals(0, users.get(1).getHelpfulnessDenominator());
         Assert.assertEquals(1, users.get(2).getHelpfulnessNumerator());
         Assert.assertEquals(2, users.get(3).getScore());

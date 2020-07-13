@@ -4,30 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import spring.boot.app.demo.model.User;
-import spring.boot.app.demo.repository.ProductRepository;
 import spring.boot.app.demo.repository.UserRepository;
 import spring.boot.app.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final ProductRepository productRepository;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           ProductRepository productRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.productRepository = productRepository;
     }
 
     @Override
     public User create(User user) {
-        user.setProduct(productRepository.save(user.getProduct()));
         return userRepository.save(user);
-    }
-
-    @Override
-    public Optional<User> findById(String id) {
-        return userRepository.findById(id);
     }
 
     @Override
@@ -43,5 +33,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getMostActiveLimitedTo(int limit) {
         return userRepository.getMostActiveLimitedTo(limit);
+    }
+
+    @Override
+    public Optional<User> findByNativeId(String nativeId) {
+        return userRepository.findByNativeId(nativeId);
+    }
+
+    @Override
+    public List<User> createAll(List<User> users) {
+        return userRepository.saveAll(users);
     }
 }

@@ -18,7 +18,7 @@ public class CustomFileReader {
         List<String> allLines = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(directory))) {
             allLines = Files.readAllLines(Paths.get(directory));
-            LOGGER.info("Information from file with directory " + directory + "was read");
+            LOGGER.info("Information from file with directory " + directory + " was read");
         } catch (IOException e) {
             throw new DataProcessingException("Can not read from file with directory " + directory, e);
         }

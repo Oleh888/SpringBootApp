@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import spring.boot.app.demo.model.User;
-import spring.boot.app.demo.service.ProductService;
 import spring.boot.app.demo.service.UserService;
 import spring.boot.app.demo.util.CustomCsvParser;
 import spring.boot.app.demo.util.CustomFileReader;
@@ -19,8 +18,8 @@ import java.util.List;
 public class UserServiceTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
     private static UserService userService;
-    private static ProductService productService;
     private static List<User> users;
+    private static final String TEST_PASSWORD = "1111";
 
     @BeforeClass
     public static void setHelperObjects() {
@@ -29,9 +28,10 @@ public class UserServiceTest {
         CustomFileReader reader = context.getBean(CustomFileReader.class);
         CustomCsvParser parser = context.getBean(CustomCsvParser.class);
         userService = context.getBean(UserService.class);
-        productService = context.getBean(ProductService.class);
         List<String> actual = reader.getAll(FILE_TEST);
         users = parser.getAllUsers(actual);
+        users.forEach(user -> user.setPassword(TEST_PASSWORD));
+        users.forEach(user -> user.setRole(User.Role.ADMIN));
         users.forEach(userService::create);
     }
 
@@ -56,9 +56,9 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserByIdIsOk() {
+    public void getUserByNativeIdIsOk() {
         for (User expectedUser : users) {
-            Assert.assertEquals(expectedUser, userService.findById(expectedUser.getId())
+            Assert.assertEquals(expectedUser, userService.findByNativeId(expectedUser.getNativeId())
                     .orElseThrow(RuntimeException::new));
         }
     }
