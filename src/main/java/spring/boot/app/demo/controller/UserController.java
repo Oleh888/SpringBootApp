@@ -1,4 +1,4 @@
-package controller;
+package spring.boot.app.demo.controller;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
