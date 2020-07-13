@@ -7,12 +7,14 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import spring.boot.app.demo.model.Product;
 import spring.boot.app.demo.model.User;
 import spring.boot.app.demo.util.CustomCsvParser;
 import spring.boot.app.demo.util.CustomFileReader;
 
+@SpringBootTest
 public class CustomFileReaderAndParserTest {
     private static final String FILE_TEST = "src/test/resources/test1.csv";
     private static final String EMPTY_FILE_TEST = "src/test/resources/test2.csv";
