@@ -1,6 +1,5 @@
 package spring.boot.app.demo.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

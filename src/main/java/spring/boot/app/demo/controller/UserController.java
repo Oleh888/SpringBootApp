@@ -1,6 +1,7 @@
 package spring.boot.app.demo.controller;
 
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,17 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import spring.boot.app.demo.model.User;
+import spring.boot.app.demo.model.dto.UserRequestDto;
 import spring.boot.app.demo.service.UserService;
 
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "/most-active")
@@ -28,8 +28,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/")
-    public User register(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.create(user);
+    public User register(@RequestBody @Valid UserRequestDto userRequestDto) {
+        return userService.create(userRequestDto);
     }
 }
