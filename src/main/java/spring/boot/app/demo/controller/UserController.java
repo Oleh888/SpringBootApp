@@ -27,7 +27,7 @@ public class UserController {
         return userService.getMostActiveLimitedTo(limit);
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/")
     public User register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.create(user);
