@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User userFromDB = userService.findByNativeId(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Can not find user with id: " + userId));
+                .orElseThrow(() -> new UsernameNotFoundException("Can not find user with id: " + userId));
         org.springframework.security.core.userdetails.User.UserBuilder builder =
                 org.springframework.security.core.userdetails.User.withUsername(userId);
         builder.password(userFromDB.getPassword())
