@@ -1,8 +1,11 @@
 package spring.boot.app.demo.model;
 
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -14,10 +17,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class User {
-    @OneToOne
-    private Product product;
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Product product;
+    private String nativeId;
     @Column(name = "profile_name")
     private String profileName;
     private int helpfulnessNumerator;
@@ -25,6 +30,12 @@ public class User {
     private int score;
     private LocalDateTime localDateTime;
     private String summary;
-    @Column(length = 1000)
+    @Column(length = 100000)
     private String text;
+    private String password;
+    private Role role;
+
+    public enum Role {
+        ADMIN, USER;
+    }
 }

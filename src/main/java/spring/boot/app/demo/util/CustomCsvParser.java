@@ -25,6 +25,7 @@ public class CustomCsvParser {
     private static final int LOCALE_DATE_TIME_INDEX = 7;
     private static final int SUMMARY_INDEX = 8;
     private static final int TEXT_INDEX = 9;
+    private static final String DEFAULT_PASSWORD = "1111";
 
     public List<User> getAllUsers (List<String> lines) {
         List<User> users = new LinkedList<>();
@@ -50,7 +51,7 @@ public class CustomCsvParser {
         Product product = new Product();
         product.setNativeId(data[PRODUCT_ID_INDEX]);
         user.setProduct(product);
-        user.setId(data[USER_ID_INDEX]);
+        user.setNativeId(data[USER_ID_INDEX]);
         user.setProfileName(data[PROFILE_NAME_INDEX]);
         user.setHelpfulnessNumerator(Integer.parseInt(data[HELPFULNESS_NUMERATOR_INDEX]));
         user.setHelpfulnessDenominator(Integer.parseInt(data[HELPFULNESS_DENOMINATOR_INDEX]));
@@ -58,6 +59,8 @@ public class CustomCsvParser {
         user.setLocalDateTime(convertToLocalDateTime(data[LOCALE_DATE_TIME_INDEX]));
         user.setSummary(data[SUMMARY_INDEX]);
         user.setText(data[TEXT_INDEX]);
+        user.setPassword(DEFAULT_PASSWORD);
+        user.setRole(User.Role.USER);
         return user;
     }
 }
